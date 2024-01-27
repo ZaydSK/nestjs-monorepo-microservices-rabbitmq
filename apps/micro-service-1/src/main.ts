@@ -6,7 +6,7 @@ async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     RabbitModule,
     {
-      options: { port: 3001 },
+      options: { port: process.env.MS1_PORT },
     },
   );
   await app.listen();

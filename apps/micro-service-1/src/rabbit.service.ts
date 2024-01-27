@@ -1,3 +1,4 @@
+import { MessageInterface } from '@app/rabbitmq';
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { Injectable, OnModuleInit } from '@nestjs/common';
 
@@ -10,10 +11,14 @@ export class RabbitMQService implements OnModuleInit {
 
   publish() {
     setInterval(() => {
-      this.amqpConnection.publish('exchange1', 'routing-key', {
-        name: `Zayd`,
-        description: `test`,
-      });
-    }, 3000);
+      this.amqpConnection.publish<MessageInterface>(
+        process.env.RABBITMQ_EXCHANGE_NAME,
+        process.env.RABBITMQ_PUBLISH_ROUTING_KEY,
+        {
+          name: `Zayd`,
+          description: `test`,
+        },
+      );
+    }, 1000);
   }
 }

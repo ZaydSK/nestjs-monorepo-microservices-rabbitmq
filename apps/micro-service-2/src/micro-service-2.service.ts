@@ -1,23 +1,24 @@
 import { RabbitRPC, RabbitSubscribe } from '@golevelup/nestjs-rabbitmq';
 import { Injectable } from '@nestjs/common';
+import {
+  MessageInterface,
+  rabbitRPCOptions,
+  rabbitSubscribeOptions,
+} from '@app/rabbitmq';
 
 @Injectable()
 export class MicroService2Service {
-  private events = [];
+  private events: MessageInterface[] = [];
   @RabbitSubscribe({
-    exchange: 'exchange1',
-    routingKey: 'routing-key',
-    queue: 'rpc-queue',
+    ...rabbitSubscribeOptions,
+    queue: process.env.RABBITMQ_PUBLISH_QUEUE,
   })
-  public async handler(msg: any) {
+  public async handler(msg: MessageInterface) {
     this.events.push(msg);
   }
 
-  @RabbitRPC({
-    exchange: 'exchange1',
-    routingKey: 'request',
-  })
-  async rpcHandler(msg: any) {
+  @RabbitRPC(rabbitRPCOptions)
+  async rpcHandler(): Promise<{ result: MessageInterface[] }> {
     return { result: this.events.slice(-10) };
   }
 }

@@ -36,6 +36,24 @@
       "compilerOptions": {
         "tsConfigPath": "apps/micro-service-3/tsconfig.app.json"
       }
+    },
+    "rabbitmq": {
+      "type": "library",
+      "root": "libs/rabbitmq",
+      "entryFile": "index",
+      "sourceRoot": "libs/rabbitmq/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/rabbitmq/tsconfig.lib.json"
+      }
+    },
+    "ms-config": {
+      "type": "library",
+      "root": "libs/ms-config",
+      "entryFile": "index",
+      "sourceRoot": "libs/ms-config/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/ms-config/tsconfig.lib.json"
+      }
     }
   }
 }
