@@ -8,7 +8,7 @@ import {
 import { MessageService } from './messages/message.service';
 
 @Injectable()
-export class MicroService2Service {
+export class DBService {
   constructor(private readonly messageService: MessageService) {}
   private events: MessageInterface[] = [];
   @RabbitSubscribe({

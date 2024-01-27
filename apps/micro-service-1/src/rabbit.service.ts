@@ -3,7 +3,7 @@ import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { Injectable, OnModuleInit } from '@nestjs/common';
 
 @Injectable()
-export class RabbitMQService implements OnModuleInit {
+export class RabbitService implements OnModuleInit {
   onModuleInit() {
     this.publish();
   }

@@ -9,4 +9,4 @@ import { rabbitMQConfig } from '@app/rabbitmq/config';
   controllers: [EventsController],
   providers: [EventsService],
 })
-export class MicroService3Module {}
+export class EventsModule {}
