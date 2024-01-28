@@ -10,15 +10,22 @@ export class RabbitService implements OnModuleInit {
   constructor(private readonly amqpConnection: AmqpConnection) {}
 
   publish() {
-    setInterval(() => {
-      this.amqpConnection.publish<MessageInterface>(
-        process.env.RABBITMQ_EXCHANGE_NAME,
-        process.env.RABBITMQ_PUBLISH_ROUTING_KEY,
-        {
-          name: `name`,
-          description: `description`,
-        },
-      );
+    const intervalId = setInterval(() => {
+      if (this.amqpConnection.connected) {
+        this.amqpConnection.publish<MessageInterface>(
+          process.env.RABBITMQ_EXCHANGE_NAME,
+          process.env.RABBITMQ_PUBLISH_ROUTING_KEY,
+          {
+            name: `name`,
+            description: `description`,
+          },
+        );
+      } else {
+        console.error(
+          'Please make sure that rabbitmq broker is running and try again',
+        );
+        clearInterval(intervalId);
+      }
     }, 1000);
   }
 }
