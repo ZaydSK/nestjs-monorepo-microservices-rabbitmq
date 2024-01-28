@@ -15,8 +15,8 @@ export class RabbitService implements OnModuleInit {
         process.env.RABBITMQ_EXCHANGE_NAME,
         process.env.RABBITMQ_PUBLISH_ROUTING_KEY,
         {
-          name: `Zayd`,
-          description: `test`,
+          name: `name`,
+          description: `description`,
         },
       );
     }, 1000);

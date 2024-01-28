@@ -1,16 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
-import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
-import { MessageInterface, rabbitRPCOptions } from '@app/rabbitmq';
+import { MessageInterface } from '@app/rabbitmq';
+import { EventsService } from './events.service';
 
 @Controller('events')
 export class EventsController {
-  constructor(private readonly amqpConnection: AmqpConnection) {}
+  constructor(private readonly eventsService: EventsService) {}
 
   @Get('last10')
   async getLast10Events(): Promise<MessageInterface[]> {
-    const response = await this.amqpConnection.request<{
-      result: MessageInterface[];
-    }>(rabbitRPCOptions);
-    return response.result;
+    return await this.eventsService.getLast10Events();
   }
 }

@@ -10,7 +10,6 @@ import { MessageService } from './messages/message.service';
 @Injectable()
 export class DBService {
   constructor(private readonly messageService: MessageService) {}
-  private events: MessageInterface[] = [];
   @RabbitSubscribe({
     ...rabbitSubscribeOptions,
     queue: process.env.RABBITMQ_PUBLISH_QUEUE,
